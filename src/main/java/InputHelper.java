@@ -18,7 +18,7 @@ public class InputHelper {
                     isValidInput = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer.");
+                System.out.println("Invalid input. Please enter an integer number.");
                 scanner.next();
             }
         }

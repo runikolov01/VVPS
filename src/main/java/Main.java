@@ -11,10 +11,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int numVariables = getInputInteger(scanner, "Please, enter the number of independent variables (must be at least 2): ");
-        String filePath = getInputString(scanner, "Please, enter the path to the data file: ");
+        int numVariables = getInputInteger(scanner, "Please enter the integer number of independent variables (must be at least 2): ");
+        String filePath = getInputString(scanner, "Please enter the path to the data file: ");
         double[][] values = readDataFromFile(filePath);
         double[] beta = new double[numVariables];
+
+        if (values.length == 0) {
+            return;
+        }
 
         int columnsNumber = values[0].length;
 

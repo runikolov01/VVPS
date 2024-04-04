@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import main.java.Data;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ public class DataReadingTest {
     public void testReadDataFromFile_FileFound() {
         // Arrange
         String filePath = "C:\\Users\\Public\\Documents\\firstTable.txt";
-        int numVariables = 4;
         double[][] expectedData = {
                 {345, 65, 23, 31.4},
                 {168, 18, 18, 14.6},
@@ -36,7 +35,6 @@ public class DataReadingTest {
     public void testReadDataFromFile_FileNotFound() {
         // Arrange
         String filePath = "C:\\Users\\Public\\Documents\\notFound.txt";
-        int numVariables = 4;
         double[][] expectedData = new double[0][0];
 
         // Redirect System.out to capture printed output

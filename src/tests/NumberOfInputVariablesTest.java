@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import main.java.Main;
 import org.junit.jupiter.api.AfterEach;
@@ -37,8 +37,8 @@ public class NumberOfInputVariablesTest {
         Main.main(new String[]{});
 
         String expectedOutput = """
-                Please, enter the number of independent variables (must be at least 2): You should write an integer number. Please, try again!
-                Please, enter the integer number of independent variables (must be at least 2): Please, enter the path to the data file: -------------------------------------------------
+                Please enter the integer number of independent variables (must be at least 2): Invalid input. Please enter an integer number.
+                Please enter the integer number of independent variables (must be at least 2): Please enter the path to the data file: -------------------------------------------------
                 Parameter: | Expected Value | Actual Value
                 -------------------------------------------------
                     β0     |    0,56646     |   0,56646
@@ -63,7 +63,8 @@ public class NumberOfInputVariablesTest {
         Main.main(new String[]{});
 
         String expectedOutput = """
-                Please, enter the number of independent variables (must be at least 2): Please, enter an integer number 2 or bigger: Please, enter the path to the data file: -------------------------------------------------
+                Please enter the integer number of independent variables (must be at least 2): Please enter an integer number 2 or bigger.
+                Please enter the integer number of independent variables (must be at least 2): Please enter the path to the data file: -------------------------------------------------
                 Parameter: | Expected Value | Actual Value
                 -------------------------------------------------
                     β0     |    0,56646     |   0,56646
@@ -90,7 +91,7 @@ public class NumberOfInputVariablesTest {
         Main.main(new String[]{});
 
         String expectedOutput = """
-                Please, enter the number of independent variables (must be at least 2): Please, enter the path to the data file: -------------------------------------------------
+                Please enter the integer number of independent variables (must be at least 2): Please enter the path to the data file: -------------------------------------------------
                 Parameter: | Expected Value | Actual Value
                 -------------------------------------------------
                     β0     |    0,56646     |   0,56646

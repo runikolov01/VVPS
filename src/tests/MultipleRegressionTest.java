@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import main.java.MultipleRegression;
 import org.junit.jupiter.api.Test;

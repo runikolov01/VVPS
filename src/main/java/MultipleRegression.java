@@ -5,8 +5,6 @@ import java.util.Arrays;
 //Този клас имплементира алгоритъма за множествена линейна регресия.
 public class MultipleRegression {
     public final double[] beta;
-    private int numVariables;
-    private int numIndVariables;
 
     public MultipleRegression(double[] beta) {
         this.beta = beta;
@@ -50,8 +48,8 @@ public class MultipleRegression {
 
     public void solve(double[][] coefficients, double[] constants) {
         int n = constants.length;
-//Взимайки матрицата на коефициентите и вектора на константите на системата, той извършва последователни операции за трансформация
-// на матрицата към горно триъгълна форма, като използва коефициенти, за да превърне всеки елемент под главния диагонал в нула.
+         //Взимайки матрицата на коефициентите и вектора на константите на системата, той извършва последователни операции за трансформация
+        // на матрицата към горно триъгълна форма, като използва коефициенти, за да превърне всеки елемент под главния диагонал в нула.
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
                 double factor = coefficients[j][i] / coefficients[i][i];
@@ -62,7 +60,7 @@ public class MultipleRegression {
             }
         }
 
-// След това извършва обратното изчисление, за да намери стойностите на променливите.
+        // След това извършва обратното изчисление, за да намери стойностите на променливите.
         for (int i = n - 1; i >= 0; i--) {
             double sum = 0.0;
             for (int j = i + 1; j < n; j++) {
