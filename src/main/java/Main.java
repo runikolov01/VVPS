@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 import static main.java.Data.printResults;
 import static main.java.Data.readDataFromFile;
-import static main.java.InputHelper.getInputInteger;
-import static main.java.InputHelper.getInputString;
+import static main.java.InputHelper.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int numVariables = getInputInteger(scanner, "Please enter the integer number of independent variables (must be at least 2): ");
+        int numVariables = readValidInput(scanner, "Please enter the integer number of independent variables (must be at least 2): ");
+
         String filePath = getInputString(scanner, "Please enter the path to the data file: ");
         double[][] values = readDataFromFile(filePath);
         double[] beta = new double[numVariables];
