@@ -11,20 +11,22 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int numVariables = getInputInteger(scanner, "Please, enter the number of independent variables (must be at least 2): ", 2);
+        int numVariables = getInputInteger(scanner, "Please, enter the number of independent variables (must be at least 2): ");
         String filePath = getInputString(scanner, "Please, enter the path to the data file: ");
+        double[][] values = readDataFromFile(filePath);
+        double[] beta = new double[numVariables];
 
-        try {
-            double[][] values = readDataFromFile(filePath, numVariables);
-            double[] beta = new double[numVariables];
-            MultipleRegression regression = new MultipleRegression(beta);
-            regression.solveEquations(values);
+        int columnsNumber = values[0].length;
 
-            printResults(filePath, beta);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ExceptionHandler.handleArrayIndexOutOfBoundsException();
+        if (columnsNumber != numVariables) {
+            System.out.println("The number of columns in the file does not match the specified number of independent variables.");
+            return;
         }
 
+        MultipleRegression regression = new MultipleRegression(beta);
+        regression.solveEquations(values);
+
+        printResults(filePath, beta);
         scanner.close();
     }
 }

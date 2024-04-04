@@ -9,32 +9,38 @@ import java.util.Scanner;
 // - принтиране на резултата
 
 public class Data {
-    // --Commented out by Inspection (27.3.2024 г. 13:14):final double[][] values;
 
-// --Commented out by Inspection START (27.3.2024 г. 13:14):
-//    Data(double[][] values) {
-//        this.values = values;
-//    }
-// --Commented out by Inspection STOP (27.3.2024 г. 13:14)
-
-    public static double[][] readDataFromFile(String filePath, int numVariables) {
+    public static double[][] readDataFromFile(String filePath) {
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
 
             int numRows = 0;
+            int numColumns = 0;
+
+            // Calculate the number of rows and the maximum number of columns
             while (scanner.hasNextLine()) {
-                scanner.nextLine();
+                String[] line = scanner.nextLine().trim().split("\\s+");
+                if (line.length > numColumns) {
+                    numColumns = line.length;
+                }
                 numRows++;
             }
             scanner.close();
 
-            double[][] data = new double[numRows][numVariables];
+            // Initialize the array with the correct size
+            double[][] data = new double[numRows][numColumns];
+
+            // Read data from the file again and populate the array
             scanner = new Scanner(file);
             int row = 0;
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().trim().split("\\s+");
-                for (int i = 0; i < numVariables; i++) {
+                if (line.length != numColumns) {
+                    System.out.println("Mismatch in the number of columns in row " + (row + 1));
+                    return new double[0][0];
+                }
+                for (int i = 0; i < numColumns; i++) {
                     data[row][i] = Double.parseDouble(line[i]);
                 }
                 row++;
@@ -47,6 +53,7 @@ public class Data {
             return new double[0][0];
         }
     }
+
 
     // Константи за очакваните стойности на бета
     private static final String[] EXPECTED_BETA_FIRST_TABLE = {"0,56646", "0,06533", "0,00872", "0,15105"};

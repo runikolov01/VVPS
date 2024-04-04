@@ -26,7 +26,7 @@ public class DataReadingTest {
         };
 
         // Act
-        double[][] actualData = Data.readDataFromFile(filePath, numVariables);
+        double[][] actualData = Data.readDataFromFile(filePath);
 
         // Assert
         assertArrayEquals(expectedData, actualData);
@@ -44,7 +44,7 @@ public class DataReadingTest {
         System.setOut(new PrintStream(outputStream));
 
         // Act
-        double[][] actualData = Data.readDataFromFile(filePath, numVariables);
+        double[][] actualData = Data.readDataFromFile(filePath);
         String consoleOutput = outputStream.toString().trim();
 
         // Assert

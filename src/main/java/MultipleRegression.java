@@ -1,54 +1,50 @@
-
-
 package main.java;
+
+import java.util.Arrays;
 
 //Този клас имплементира алгоритъма за множествена линейна регресия.
 public class MultipleRegression {
     public final double[] beta;
+    private int numVariables;
+    private int numIndVariables;
 
     public MultipleRegression(double[] beta) {
         this.beta = beta;
     }
 
-    //Алгоритъма на Гаус за намиране на коефициентите на регресията:
+    // Алгоритъма на Гаус за намиране на коефициентите на регресията:
     // Този метод решава регресионните уравнения.
     // Той изчислява матриците на коефициентите и константите от предоставените данни
     // и след това извиква метода за решаване, за да намери бета стойностите.
     public void solveEquations(double[][] data) {
-        double[][] coefficients = new double[4][4];
-        double[] constants = new double[4];
+        int numIndVariables = data[0].length - 1;
+        double[][] coefficients = new double[numIndVariables + 1][numIndVariables + 1];
+        double[] constants = new double[numIndVariables + 1];
 
         for (double[] datum : data) {
-            double w = datum[0];
-            double x = datum[1];
-            double y = datum[2];
-            double z = datum[3];
+            double[] variables = Arrays.copyOf(datum, numIndVariables); // Extract independent variables
+            double dependentVariable = datum[numIndVariables]; // Extract dependent variable
 
-            coefficients[0][0] += 1;
-            coefficients[0][1] += w;
-            coefficients[0][2] += x;
-            coefficients[0][3] += y;
-            coefficients[1][0] += w;
-            coefficients[1][1] += Math.pow(w, 2);
-            coefficients[1][2] += w * x;
-            coefficients[1][3] += w * y;
-            coefficients[2][0] += x;
-            coefficients[2][1] += w * x;
-            coefficients[2][2] += Math.pow(x, 2);
-            coefficients[2][3] += x * y;
-            coefficients[3][0] += y;
-            coefficients[3][1] += w * y;
-            coefficients[3][2] += x * y;
-            coefficients[3][3] += Math.pow(y, 2);
-
-            constants[0] += z;
-            constants[1] += w * z;
-            constants[2] += x * z;
-            constants[3] += y * z;
+            // Populate coefficients and constants
+            for (int i = 0; i <= numIndVariables; i++) {
+                for (int j = 0; j <= numIndVariables; j++) {
+                    if (i == 0 && j == 0) {
+                        coefficients[i][j] += 1;
+                    } else if (i == 0) {
+                        coefficients[i][j] += variables[j - 1];
+                    } else if (j == 0) {
+                        coefficients[i][j] += variables[i - 1];
+                    } else {
+                        coefficients[i][j] += variables[i - 1] * variables[j - 1];
+                    }
+                }
+                constants[i] += (i == 0) ? dependentVariable : variables[i - 1] * dependentVariable;
+            }
         }
 
         solve(coefficients, constants);
     }
+
 
     // Решаване на системата от линейни уравнения чрез елиминиране на Гаус за намиране на бета стойностите.
 
